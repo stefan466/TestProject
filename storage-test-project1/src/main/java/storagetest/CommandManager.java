@@ -111,6 +111,7 @@ public class CommandManager {
         String[] names = args2.split(",");
         List<String> namesList = Arrays.asList(names);
 
+
         boolean contains = storage.containsFile(path, namesList);
 
         if (contains)
@@ -209,8 +210,13 @@ public class CommandManager {
                 listaLocal.clear();
                 listaLocal = checkMarkers1(path, arguments[2], storage, choice, order);
 
-            }
+            }else if (arguments.length == 4) {
 
+                String path = arguments[1];
+                listaLocal.clear();
+                listaLocal = checkMarkers1(path, arguments[2] + " " + arguments[3], storage, choice, order);
+
+            }
                 for (java.io.File f : listaLocal) {
                     ispis = "";
                     for (int i = 0; i < parimeters.length; i++) {
@@ -218,7 +224,7 @@ public class CommandManager {
                         if (i != parimeters.length - 1) {
                             switch (parimeters[i]) {
                                 case "id":
-                                    ispis += "ID: Lokalna implementacija nema ID    ";
+                                    ispis += "Path: " + f.getPath()+ ",    ";
                                     break;
                                 case "name":
                                     ispis += "Name: " + f.getName() + ",    ";
@@ -236,7 +242,7 @@ public class CommandManager {
                         } else {
                             switch (parimeters[i]) {
                                 case "id":
-                                    ispis += "ID: Lokalna implementacija nema ID" ;
+                                    ispis += "Path: " + f.getPath();
                                     break;
                                 case "name":
                                     ispis += "Name: " + f.getName();
@@ -378,7 +384,6 @@ public class CommandManager {
         System.out.println("    /finddir        [fileName]                              : Ispis direktorijuma u kome se nalazi fajl sa zadatim imenom.");
         System.out.println("    /rename         [filePath/ID] [newFileName]             : Promena imena zadatom fajlu."); //TODO
         System.out.println("    /listPeriod     [filePath/ID] [periodFrom - periodTo]   : Izlistavanje fajlova u skladistu koju su kreirani u zadatom periodu."); //
-        System.out.println("    /list                                                   : Izlistavanje svih direktorijuma i fajlova skladista.");
         System.out.println("    /list           [filePath/ID]                           : Izlistavanje svih direktorijuma i fajlova unutar prosledjenog direktorijuma.");
         System.out.println("    /list           [filePath/ID] [marker]                  : Izlistavanje direktorijuma i fajlova unutar prosledjenog direktorijuma u zavisnosti od markera.");
         System.out.println("                                                              Markeri:");
@@ -439,8 +444,7 @@ public class CommandManager {
                         System.out.println("Ne postoje fajlovi sa zadatom ekstenzijom.");
                     }else {
                         System.out.println("Fajlovi u zadatom direktorijumu sa ekstenijom '" + extension + "': ");
-                        for(File f: lista)
-                            System.out.println(f.getName() + "ID: [" + f.getId() + "]");
+
                         return lista;
                     }
 
@@ -456,11 +460,12 @@ public class CommandManager {
                                 lista = storage.listAll(path);
                                 if (lista.isEmpty()){
                                     System.out.println("Ne postoje fajlovi ni u jednom direktorijumu iz zadatog direktorijuma.");
+                                    return new ArrayList();
                                 }else {
                                         System.out.println("Fajlovi u svim direktorijumima iz zadatog direktorijuma: ");
                                         return lista;
                                 }
-                                break;
+                               // break;
                             case "name":
                                 lista.clear();
                                 lista = storage.sortByName(path, marker1, order);
@@ -500,15 +505,13 @@ public class CommandManager {
                                 lista = storage.listFiles(path);
                                 if (lista.isEmpty()){
                                     System.out.println("Ne postoje fajlovi u zadatom direktorijumu.");
+                                    return new ArrayList();
                                 }else {
                                     System.out.println("Fajlovi u zadatom direktorijumu: ");
 
-                                    for(File f: lista)
-                                        System.out.println(f.getName() + "ID: [" + f.getId() + "]");
-
                                     return lista;
                                 }
-                                break;
+                                //break;
 
                             case "name":
                                 lista.clear();
@@ -554,10 +557,8 @@ public class CommandManager {
                                 if (lista.isEmpty()) {
                                     System.out.println("Ne postoje fajlovi u zadatom direktorijumu niti u poddirektorijumima.");
                                 } else {
-
                                         System.out.println("Fajlovi u zadatom direktorijumu i svim poddirektorijumima: ");
                                         return lista;
-
                                 }
                                 break;
                             case "name":

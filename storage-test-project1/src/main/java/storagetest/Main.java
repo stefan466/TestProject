@@ -16,19 +16,19 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String impl = "drive";
-        //String impl = "local";
+       // String impl = "drive";
+        String impl = "local";
 
         try {
-            Class.forName("org.googledrive.impl.GoogleDriveStorage");
-            //Class.forName("localstorageimpl.LocalStorageImplementation");
+            //Class.forName("org.googledrive.impl.GoogleDriveStorage"); // 11QdYzWAppCpEconzpFs6vQ5zCI4GDo64
+            Class.forName("local_storage_impl.LocalStorageImplementation"); //Storage C:\Users\matij\Documents
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
         if(args.length!=2){
-            System.out.println("usage java -jar storage-test-1.0-SNAPSHOT <storageName> <storagePath>   ");
+            System.out.println("java -jar storage-test-1.0-SNAPSHOT <storageName> <storagePath>   ");
             System.out.println(args);
             // Storage 11QdYzWAppCpEconzpFs6vQ5zCI4GDo64
 
