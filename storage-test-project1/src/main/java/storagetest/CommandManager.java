@@ -365,12 +365,7 @@ public class CommandManager {
         List<File> lista = storage.listFilesCreatedPeriod(path, period);
 
     }
-    /*
-    todo
-        =generisanje dokumentacije
-        =config
-        =rename
-     */
+
     public static void commandHelp(){//1Cbxi2LYwMKPU6p77zZoa2wZ9907FlUhv
 
         System.out.println("Lista komandi:");
@@ -655,52 +650,6 @@ public class CommandManager {
         return null;
     }
 
-    public static void checkMarkers(String path, String marker, Storage storage){
-
-        if(marker.startsWith("-")) {
-            if (marker.startsWith("-\"")) {
-
-                if(marker.equals("-\"")){
-                    System.out.println("Marker nije potpun. Marker za izlistavanje po nazivu mora biti zapisan u obliku: -\"fileName\"");
-                }else {
-
-                    String fileName = marker.substring(2, marker.length() - 1);
-                    storage.listByName(path, fileName);
-                }
-            } else if(marker.startsWith("-.")){
-
-                if(marker.equals("-.")){
-                    System.out.println("Marker nije potpun. Marker za izlistavanje po ekstenziji mora biti zapisan u obliku: -.extension");
-                } else {
-
-                    String extension = marker.substring(1);
-                    storage.listFilesWithExt(path, extension);
-                }
-            } else if(marker.equals("-all") || marker.equals("-files") || marker.equals("-dirs")) {
-
-                switch (marker) {
-
-                    case "-all":
-                        storage.listAll(path);
-                        break;
-                    case "-files":
-                        storage.listFiles(path);
-                        break;
-                    case "-dirs":
-                        storage.listDirs(path);
-                        break;
-                }
-
-            } else {
-                System.out.println("Marker nije validan! Lista validnih markera: -all | -files | -dirs | -\"fileName\" | -.extension");
-            }
-        } else {
-            System.out.println("Pogresan poziv /list komande. Za detaljnije objasnjenje komande ukucajte /help");
-        }
-    }
-
-
-    //TODO
     public static void parseMultipleSyntax(String path, String toParse, Storage storage) {
 
         if (toParse.contains("<") && toParse.contains(">")) {
