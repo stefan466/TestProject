@@ -3,6 +3,9 @@ package storagetest;
 import com.google.api.services.drive.model.File;
 import org.Storage;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 public class CommandManager {
@@ -144,7 +147,7 @@ public class CommandManager {
 
         storage.renameFile(arguments[1], arguments[2]);
     }
-    public static void commandList(String line, Storage storage) {
+    public static void commandList(String line, Storage storage) throws IOException {
 
         List<File> listaDrive = new ArrayList<>();
         List<java.io.File> listaLocal = new ArrayList<>();
@@ -217,6 +220,14 @@ public class CommandManager {
                 listaLocal = checkMarkers1(path, arguments[2] + " " + arguments[3], storage, choice, order);
 
             }
+        /*    List<BasicFileAttributes> listatr = new ArrayList<>();
+            BasicFileAttributes attr;
+                for (java.io.File f : listaLocal) {
+                    attr = Files.readAttributes(f.toPath(), BasicFileAttributes.class);
+                    listatr.add(attr);
+                }*/
+
+
                 for (java.io.File f : listaLocal) {
                     ispis = "";
                     for (int i = 0; i < parimeters.length; i++) {
@@ -233,7 +244,7 @@ public class CommandManager {
                                     ispis += "Date Created: " + f + ",   "; //TODO
                                     break;
                                 case "datemodified":
-                                    ispis += "Date Modified: " + f + ",    "; //TODO
+                                    ispis += "Date Modified: " + new Date(f.lastModified()) + ",    ";
                                     break;
                                 case "size":
                                     ispis += "Size: " + f + ",     "; //TODO
@@ -251,7 +262,7 @@ public class CommandManager {
                                     ispis += "Date Created: " + f; //TODO
                                     break;
                                 case "datemodified":
-                                    ispis += "Date Modified: " + f; //TODO
+                                    ispis += "Date Modified: " + new Date(f.lastModified());
                                     break;
                                 case "size":
                                     ispis += "Size: " + f; //TODO
@@ -467,8 +478,8 @@ public class CommandManager {
                                 if (lista.isEmpty()){
                                     System.out.println("Ne postoje fajlovi ni u jednom direktorijumu iz zadatog direktorijuma.");
                                 }else {
-                                        System.out.println("Fajlovi u svim direktorijumima iz zadatog direktorijuma sortirani po imenu: ");
-                                        return lista;
+                                    System.out.println("Fajlovi u svim direktorijumima iz zadatog direktorijuma sortirani po imenu: ");
+                                    return lista;
                                 }
                                 break;
                             case "date":

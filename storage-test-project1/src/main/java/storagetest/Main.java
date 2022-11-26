@@ -5,6 +5,7 @@ import org.StorageManager;
 import org.googledrive.impl.GoogleDriveStorage;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
        // String impl = "drive";
         String impl = "local";
